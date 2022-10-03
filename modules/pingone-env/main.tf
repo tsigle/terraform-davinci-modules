@@ -55,7 +55,5 @@ resource "davinci_flow" "flow1" {
 }
 
 
-output "environment_id" {
-  value = pingone_environment.env_instance.id
-}
+
 
