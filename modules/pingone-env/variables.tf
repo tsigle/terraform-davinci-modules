@@ -29,7 +29,7 @@ variable "admin_user_id" {
   default     = ""
 }
 
-variable "flow_json_file" {
-  description = "DaVinci Flow JSON file"
+variable "flow_url" {
+  description = "DaVinci Flow URL containing JSON"
   type        = string
 }

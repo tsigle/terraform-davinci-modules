@@ -18,19 +18,12 @@ resource "pingone_environment" "env_instance" {
 
   service {
     type = "SSO"
-
-
-    bookmark {
-      name = "Google"
-      url  = "https://google.com"
-    }
   }
 
   service {
     type = "DaVinci"
   }
 }
-
 
 data "pingone_role" "identity_data_admin" {
   name = "Identity Data Admin"
@@ -44,8 +37,16 @@ resource "pingone_role_assignment_user" "admin_role" {
   scope_environment_id = pingone_environment.env_instance.id
 }
 
-resource "davinci_flow" "flow_registration" {
-  flow_json = var.flow_json_file
+
+data "http" "flow_json" {
+  url = var.flow_url
+  request_headers = {
+    Accept = "application/json"
+  }
+}
+resource "davinci_flow" "flow1" {
+  flow_json = data.http.flow_json.response_body
+
   deploy    = true
 
   depends_on = [
